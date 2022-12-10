@@ -55,7 +55,7 @@ def visualize(dataset, pred, args):
         cv2.imwrite(img_path, img_vis)
 
 
-label2view = {0: 'front_view', 1: 'left_view', 2: 'right_view', 3: 'left_view', 4: 'right_view', 5: 'back_view'}
+label2view = {0: 'front_view', 1: 'front_view', 2: 'front_view', 3: 'left_view', 4: 'right_view', 5: 'back_view'}
 
 
 
@@ -68,12 +68,12 @@ def main():
     pred,filename = hook(dataset)
     print(len(pred))
     print(len(filename))
-    #view_dict = {}
-    # for i in range(len(filename)):
-    #     view_dict[filename[i].split('.')[0]] = label2view[pred[i]]
-    # with open('/Users/longruihan/课题组/orientation/dml_seven_v2_query_view_2.pickle', 'wb') as f:
-    #     view_dict = pickle.dumps(view_dict)
-    #     f.write(view_dict)
+    view_dict = {}
+    for i in range(len(filename)):
+        view_dict[filename[i].split('.')[0]] = label2view[pred[i]]
+    with open('/Users/longruihan/课题组/orientation/dml_seven_v2_query_view_2.pickle', 'wb') as f:
+        view_dict = pickle.dumps(view_dict)
+        f.write(view_dict)
 
     gt = [info["orientation"] for _, info in dataset]
     if args.visualize:
